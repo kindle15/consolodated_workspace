@@ -1,0 +1,82 @@
+# Research on Python Libraries
+
+## Core Framework Libraries
+- **PyQt5**: A set of Python bindings for Qt libraries, used for creating cross-platform applications.
+- **Tkinter**: The standard GUI toolkit for Python, great for simple GUI applications.
+
+## Window Management Libraries
+- **pywin32**: Provides access to many of the Windows APIs from Python.
+- **pygetwindow**: A simple library to manipulate and get information about windows.
+
+## USB Detection Libraries
+- **psutil**: A cross-platform library for retrieving information on running processes and system utilization.
+- **WMI**: Allows you to query for USB devices and other information on Windows.
+- **pyudev**: Allows interaction with the Linux udev device manager.
+
+## Browser Automation Libraries
+- **Selenium**: A popular tool for automating web applications for testing purposes.
+- **Playwright**: A Node.js library for browser automation that allows testing web apps.
+- **BeautifulSoup4**: A library for parsing HTML and XML documents and extracting data.
+
+## UI Framework Libraries
+- **Kivy**: An open-source Python library for developing multitouch applications.
+- **FLTK**: The Fast, Light Toolkit for GUI development.
+
+## File Monitoring Libraries
+- **watchdog**: A Python API library and shell utilities to monitor file system events.
+
+## Process Management Libraries
+- **psutil**: Also used for process management, monitoring system resources.
+
+## Configuration Libraries
+- **json**: Required for dealing with JSON data in Python.
+- **configparser**: A library to manage user-editable configuration files.
+- **pydantic**: Data validation and settings management using Python type annotations.
+
+## Logging Libraries
+- **logging**: The standard logging library for Python.
+- **loguru**: A library that provides an easier logging experience in Python.
+
+## Packaging Libraries
+- **PyInstaller**: Converts Python applications into stand-alone executables.
+- **cx_Freeze**: A set of scripts and modules for freezing Python scripts into executables.
+- **Nuitka**: A Python-to-C++ compiler that can produce stand-alone executables.
+
+## Testing Libraries
+- **pytest**: A framework to write simple and scalable test cases.
+- **pytest-cov**: A plugin for measuring code coverage.
+- **pytest-qt**: A plugin for testing PyQt applications with pytest.
+
+## Utility Libraries
+- **pathlib**: A module in the standard library for handling filesystem paths.
+- **requests**: A simple library to make HTTP requests.
+- **cryptography**: A library for cryptography recipes and primitives.
+- **keyboard**: A library for getting information about and controlling the keyboard.
+- **pynput**: A library to monitor and control input devices.
+
+## Recommended Library Stack
+- PyQt5: latest
+- Tkinter: included with Python
+- psutil: 5.9.0
+- Selenium: 4.1.0
+- BeautifulSoup4: 4.10.0
+
+## Installation Requirements
+To install the required libraries, create a `requirements.txt` file with the following content:
+```
+PyQt5
+Tkinter
+psutil==5.9.0
+selenium==4.1.0
+beautifulsoup4==4.10.0
+watchdog
+pytest
+pytest-cov
+pytest-qt
+requests
+cryptography
+keyboard
+pynput
+```
+
+Ensure you have the correct versions based on project needs.
