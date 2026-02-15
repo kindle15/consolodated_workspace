@@ -1,0 +1,641 @@
+================================================================================
+CONSOLIDATED WORKSPACE MANAGER
+TIMELINE & GANTT CHART
+Version 1.0 - February 2026
+================================================================================
+
+PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+Project Name:      Consolidated Workspace Manager
+Duration:          8 weeks (56 days)
+Start Date:        Week 1, Day 1
+Methodology:       Agile with 2-week sprints
+Team Size:         1 developer (with AI assistance)
+Work Schedule:     5 days/week, 6 hours/day = 240 total hours
+
+================================================================================
+SPRINT BREAKDOWN
+================================================================================
+
+SPRINT 1: FOUNDATION & CORE FRAMEWORK (WEEKS 1-2)
+--------------------------------------------------------------------------------
+Duration: 10 working days (60 hours)
+
+Week 1: Days 1-5
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 1-2: Development Environment Setup (12 hours)                          │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Install Python 3.11+                                                     │
+│ • Set up virtual environment                                               │
+│ • Install PyQt5, pywin32, other core dependencies                          │
+│ • Configure IDE (VS Code with Python extensions)                           │
+│ • Create Git repository structure                                          │
+│ • Set up version control workflow                                          │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • Working development environment                                          │
+│ • requirements.txt with initial dependencies                               │
+│ • README.md with setup instructions                                        │
+│ • .gitignore configured                                                    │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 3-5: USB Authentication Module (18 hours)                              │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Research USB detection methods (pywin32, psutil)                         │
+│ • Implement drive enumeration                                              │
+│ • Create key file reader (github_api_key.txt)                              │
+│ • Build authentication logic                                               │
+│ • Add background monitoring thread (10-second polling)                     │
+│ • Create lock screen on USB removal                                        │
+│ • Build error handling and user prompts                                    │
+│ • Write unit tests for auth module                                         │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • usb_auth.py module                                                       │
+│ • Working USB detection                                                    │
+│ • Lock screen UI mockup                                                    │
+│ • Test suite for authentication                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+Week 2: Days 6-10
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 6-8: Main Application Window (18 hours)                                │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Create PyQt5 main window class                                           │
+│ • Implement full-screen/windowed modes                                     │
+│ • Build layout system (splitters, containers)                              │
+│ • Add window state management (resize, move, minimize)                     │
+│ • Create basic menu bar and toolbar                                        │
+│ • Implement system tray icon                                               │
+│ • Test multi-monitor behavior                                              │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • main_window.py                                                           │
+│ • Basic GUI shell                                                          │
+│ • Window state persistence                                                 │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 9-10: Session Manager (12 hours)                                       │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Design session JSON schema                                               │
+│ • Implement session save/load functions                                    │
+│ • Create session file manager (read/write)                                 │
+│ • Add auto-save (every 5 minutes)                                          │
+│ • Build session restore prompt on startup                                  │
+│ • Handle corrupted session files gracefully                                │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • session_manager.py                                                       │
+│ • Session persistence working                                              │
+│ • Default session template                                                 │
+└────────────────────────────────────────────────────────────────────────────┘
+
+Sprint 1 Milestone:
+✓ Authentication system functional
+✓ Main window displays
+✓ Sessions save and restore
+✓ Core framework ready for integration
+
+
+SPRINT 2: APPLICATION INTEGRATION (WEEKS 3-4)
+--------------------------------------------------------------------------------
+Duration: 10 working days (60 hours)
+
+Week 3: Days 11-15
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 11-13: Window Manager Foundation (18 hours)                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Research Win32 API window manipulation                                   │
+│ • Implement FindWindow, SetWindowPos, MoveWindow                           │
+│ • Create process launcher with argument passing                            │
+│ • Build window positioning calculator (screen coordinates)                 │
+│ • Add process monitoring (detect closures)                                 │
+│ • Implement window state queries (minimized, maximized)                    │
+│ • Test with calculator.exe as proof of concept                             │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • window_manager.py                                                        │
+│ • Successfully position one external app                                   │
+│ • Process monitoring working                                               │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌───────────────────���────────────────────────────────────────────────────────┐
+│ DAY 14-15: Browser Integration (12 hours)                                  │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Launch Chrome/Edge in app mode                                           │
+│ • Configure startup URLs (GitHub, Copilot)                                 │
+│ • Position browser in left pane (60% width)                                │
+│ • Test tab persistence                                                     │
+│ • Add browser restart functionality                                        │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • browser_handler.py                                                       │
+│ • Browser launches positioned correctly                                    │
+│ • GitHub/Copilot tabs open automatically                                   │
+└────────────────────────────────────────────────────────────────────────────┘
+
+Week 4: Days 16-20
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 16-17: File Explorer Integration (12 hours)                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Option A: Launch Windows Explorer                                        │
+│ • Option B: Build custom PyQt5 QTreeView                                   │
+│ • Position in top-right quadrant                                           │
+│ • Implement folder monitoring (watchdog)                                   │
+│ • Add "Create Folder" and "Refresh" buttons                             │
+│ • Handle file double-click to open in editor                               │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • file_explorer.py                                                         │
+│ • Tree view displaying project files                                       │
+│ • Two-button toolbar functional                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 18-19: Text Editor Integration (12 hours)                              │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Configure Notepad++ portable version                                     │
+│ • Create launcher with file arguments                                      │
+│ • Position in middle-right quadrant                                        │
+│ • Test multi-tab functionality                                             │
+│ • Implement file change monitoring                                         │
+│ • Add "Open in Editor" function from file tree                             │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • editor_handler.py                                                        │
+│ • Notepad++ launches with correct files                                    │
+│ • Tabs display properly                                                    │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 20: Terminal Integration (6 hours)                                     │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Launch Windows Terminal or cmd.exe                                       │
+│ • Set working directory to project path                                    │
+│ • Position in bottom-right quadrant                                        │
+│ • Test process interaction                                                 │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • terminal_handler.py                                                      │
+│ • Terminal launches in correct position                                    │
+└────────────────────────────────────────────────────────────────────────────┘
+
+Sprint 2 Milestone:
+✓ All 4 components launch and position correctly
+✓ Layout management functional
+✓ Process monitoring working
+
+
+SPRINT 3: FEATURE IMPLEMENTATION (WEEKS 5-6)
+--------------------------------------------------------------------------------
+Duration: 10 working days (60 hours)
+
+Week 5: Days 21-25
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 21-23: Chat Export Functionality (18 hours)                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Design radio button UI (3 options + execute button)                      │
+│ • Research Selenium/Playwright for browser automation                      │
+│ • Implement chat scraping logic                                            │
+│ • Build export formatters (archive, snippets, full text)                   │
+│ • Create file save dialog with default naming                              │
+│ • Add progress indicator for long exports                                  │
+│ • Test with various chat lengths                                           │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • chat_exporter.py                                                         │
+│ • Radio button UI integrated                                               │
+│ • All 3 export modes working                                               │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 24-25: Terminal Reopen Feature (12 hours)                              │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Add "Reopen Terminal" button to UI                                       │
+│ • Implement warning dialog ("Save your work")                              │
+│ • Create process termination function                                      │
+│ • Restore working directory after relaunch                                 │
+│ • Save/restore terminal profile settings                                   │
+│ • Test with active processes running                                       │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • Terminal reopen button functional                                        │
+│ • Warning system implemented                                               │
+│ • Working directory persists                                               │
+└────────────────────────────────────────────────────────────────────────────┘
+
+Week 6: Days 26-30
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 26-27: Keyboard Shortcuts (12 hours)                                   │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Implement global hotkey system (pynput)                                  │
+│ • Add keybindings:                                                         │
+│   - Ctrl+Alt+L: Restore layout                                             │
+│   - Ctrl+Alt+H: Hide/show workspace                                        │
+│   - Ctrl+Alt+T: Focus terminal                                             │
+│   - Ctrl+Alt+E: Focus editor                                               │
+│   - Ctrl+Alt+B: Focus browser                                              │
+│ • Create settings dialog for custom keybindings                            │
+│ • Test conflicts with system shortcuts                                     │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • keybindings.py                                                           │
+│ • All hotkeys functional                                                   │
+│ • Customizable key settings                                                │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 28-30: Layout Management (18 hours)                                    │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Implement "Restore Layout" function                                      │
+│ • Add "Save Current Layout" option                                         │
+│ • Create layout presets (coding, research, debugging)                      │
+│ • Build layout switcher dropdown                                           │
+│ • Support multi-monitor layouts                                            │
+│ • Handle resolution changes gracefully                                     │
+│ • Test on different screen sizes (1920x1080, 2560x1440, etc.)             │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • layout_manager.py                                                        │
+│ • Multiple layouts supported                                               │
+│ • Resolution-adaptive positioning                                          │
+└────────────────────────────────────────────────────────────────────────────┘
+
+Sprint 3 Milestone:
+✓ All user-facing features implemented
+✓ Keyboard shortcuts working
+✓ Export functionality complete
+
+
+SPRINT 4: POLISH & DEPLOYMENT (WEEKS 7-8)
+--------------------------------------------------------------------------------
+Duration: 10 working days (60 hours)
+
+Week 7: Days 31-35
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 31-32: Error Handling & Stability (12 hours)                           │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Add try-catch blocks to all critical functions                           │
+│ • Implement logging system (logging module)                                │
+│ • Create crash recovery system                                             │
+│ • Handle missing dependencies gracefully                                   │
+│ • Add user-friendly error messages                                         │
+│ • Test edge cases (no USB, apps not installed, etc.)                       │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • Robust error handling throughout                                         │
+│ • Log files for debugging                                                  │
+│ • Graceful failure modes                                                   │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 33-34: User Preferences & Settings (12 hours)                          │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Build settings dialog (PyQt5)                                            │
+│ • Add preferences:                                                         │
+│   - Default project folder                                                 │
+│   - USB key file path                                                      │
+│   - Layout preset                                                          │
+│   - Auto-start with Windows                                                │
+│   - Theme (dark/light)                                                     │
+│ • Implement config file (JSON or INI)                                      │
+│ • Create first-run setup wizard                                            │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • settings_dialog.py                                                       │
+│ • User preferences persistent                                              │
+│ • Setup wizard for new users                                               │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 35: UI Polish & Theming (6 hours)                                      │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Apply consistent styling (PyQt5 stylesheets)                             │
+│ • Create dark and light themes                                             │
+│ • Add icons to buttons and menus                                           │
+│ • Improve visual feedback (hover states, tooltips)                         │
+│ • Test UI on high-DPI displays                                             │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • Polished, professional UI                                                │
+│ • Dark/light theme support                                                 │
+└────────────────────────────────────────────────────────────────────────────┘
+
+Week 8: Days 36-40
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 36-37: Documentation (12 hours)                                        │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Write comprehensive README.md                                            │
+│ • Create user manual (Markdown or PDF)                                     │
+│ • Document API/module interfaces                                           │
+│ • Add inline code comments                                                 │
+│ • Create troubleshooting guide                                             │
+│ • Write CONTRIBUTING.md for future development                             │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • Complete documentation suite                                             │
+│ • User manual                                                              │
+│ • Developer guide                                                          │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 38-39: Testing & Bug Fixes (12 hours)                                  │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Comprehensive system testing                                             │
+│ • User acceptance testing (UAT)                                            │
+│ • Fix identified bugs                                                      │
+│ • Performance optimization                                                 │
+│ • Memory leak checks                                                       │
+│ • Stress testing (long-running sessions)                                   │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • Bug-free stable version                                                  │
+│ • Test report                                                              │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DAY 40: Packaging & Deployment (6 hours)                                   │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Tasks:                                                                      │
+│ • Create standalone executable (PyInstaller or cx_Freeze)                  │
+│ • Build Windows installer (Inno Setup or NSIS)                             │
+│ • Test installer on clean Windows system                                   │
+│ • Create release notes                                                     │
+│ • Tag version in Git (v1.0.0)                                              │
+│                                                                             │
+│ Deliverables:                                                               │
+│ • WorkspaceManager-1.0.0-Setup.exe                                         │
+│ • Portable .zip version                                                    │
+│ • Release package                                                          │
+└────────────────────────────────────────────────────────────────────────────┘
+
+Sprint 4 Milestone:
+✓ Production-ready application
+✓ Complete documentation
+✓ Installable package
+
+
+================================================================================
+GANTT CHART (ASCII FORMAT)
+================================================================================
+
+Week:    1    2    3    4    5    6    7    8
+Day:   12345|12345|12345|12345|12345|12345|12345|12345
+       ─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────
+Setup  ██░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░
+Auth   ░░███|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░
+Window ░░░░░|███░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░
+Session ░░░░░|░░██|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░
+WinMgr ░░░░░|░░░░░|███░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░
+Browser ░░░░░|░░░░░|░░░██|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░
+FileExp ░░░░░|░░░░░|░░░░░|██░░░|░░░░░|░░░░░|░░░░░|░░░░░
+Editor  ░░░░░|░░░░░|░░░░░|░░██░|░░░░░|░░░░░|░░░░░|░░░░░
+Terminal░░░░░|░░░░░|░░░░░|░░░░█|░░░░░|░░░░░|░░░░░|░░░░░
+Export  ░░░░░|░░░░░|░░░░░|░░░░░|███░░|░░░░░|░░░░░|░░░░░
+Reopen  ░░░░░|░░░░░|░░░░░|░░░░░|░░░██|░░░░░|░░░░░|░░░░░
+Hotkeys ░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|██░░░|░░░░░|░░░░░
+Layout  ░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░███|░░░░░|░░░░░
+Errors  ░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|██░░░|░░░░░
+Settings░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░██░|░░░░░
+Polish  ░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░█|░░░░░
+Docs    ░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|██░░░
+Testing ░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░██░
+Deploy  ░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░░|░░░░█
+
+Legend: █ = Active work  ░ = Not started/completed
+
+
+================================================================================
+MILESTONE TRACKER
+================================================================================
+
+Milestone 1: Core Framework Complete
+├─ Due: End of Week 2 (Day 10)
+├─ Criteria:
+│  ✓ USB authentication working
+│  ✓ Main window displays
+│  ✓ Session persistence functional
+└─ Risk Level: Low
+
+Milestone 2: Integration Complete
+├─ Due: End of Week 4 (Day 20)
+├─ Criteria:
+│  ✓ All 4 apps launch and position
+│  ✓ Process monitoring active
+│  ✓ Layout saves and restores
+└─ Risk Level: Medium (window management complexity)
+
+Milestone 3: Feature Complete
+├─ Due: End of Week 6 (Day 30)
+├─ Criteria:
+│  ✓ Chat export working
+│  ✓ Terminal reopen functional
+│  ✓ Hotkeys implemented
+│  ✓ Multiple layouts supported
+└─ Risk Level: Medium (browser automation)
+
+Milestone 4: Release Ready
+├─ Due: End of Week 8 (Day 40)
+├─ Criteria:
+│  ✓ All bugs fixed
+│  ✓ Documentation complete
+│  ✓ Installer created
+│  ✓ Ready for distribution
+└─ Risk Level: Low
+
+
+================================================================================
+RESOURCE ALLOCATION
+================================================================================
+
+By Sprint:
+┌────────┬───────────────────────┬───────┬──────────┐
+│ Sprint │ Focus Area            │ Hours │ % Total  │
+├────────┼───────────────────────┼───────┼──────────┤
+│   1    │ Foundation            │  60   │   25%    │
+│   2    │ Integration           │  60   │   25%    │
+│   3    │ Features              │  60   │   25%    │
+│   4    │ Polish & Deploy       │  60   │   25%    │
+├────────┼───────────────────────┼───────┼──────────┤
+│ Total  │                       │ 240   │  100%    │
+└────────┴───────────────────────┴───────┴──────────┘
+
+By Component:
+┌─────────────────────────┬───────┬──────────┐
+│ Component               │ Hours │ % Total  │
+├─────────────────────────┼───────┼──────────┤
+│ Core Framework          │  42   │  17.5%   │
+│ Window Management       │  30   │  12.5%   │
+│ Application Integration │  48   │  20.0%   │
+│ Feature Development     │  48   │  20.0%   │
+│ UI/UX Polish            │  18   │   7.5%   │
+│ Testing & QA            │  24   │  10.0%   │
+│ Documentation           │  18   │   7.5%   │
+│ Deployment              │  12   │   5.0%   │
+├─────────────────────────┼───────┼──────────┤
+│ Total                   │ 240   │  100%    │
+└─────────────────────────┴───────┴──────────┘
+
+
+================================================================================
+RISK MANAGEMENT
+================================================================================
+
+HIGH RISK ITEMS:
+┌────────────────────────────────────────────────────────────────────────────┐
+│ Risk: Window embedding not working with certain apps                       │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Probability: 40%                                                            │
+│ Impact: High (core functionality)                                           │
+│ Mitigation:                                                                 │
+│ • Research multiple window control methods early (Week 3)                  │
+│ • Fall back to positioning strategy if embedding fails                     │
+│ • Allocate buffer time in Sprint 2                                         │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ Risk: Browser automation breaks with site updates                          │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Probability: 30%                                                            │
+│ Impact: Medium (affects export feature)                                     │
+│ Mitigation:                                                                 │
+│ • Use robust selectors (data attributes, not just CSS)                     │
+│ • Build fallback export methods (manual copy-paste)                        │
+│ • Document export process for future updates                               │
+└────────────────────────────────────────────────────────────────────────────┘
+
+MEDIUM RISK ITEMS:
+┌────────────────────────────────────────────────────────────────────────────┐
+│ Risk: USB detection inconsistent across Windows versions                   │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Probability: 20%                                                            │
+│ Impact: High (security feature)                                             │
+│ Mitigation:                                                                 │
+│ • Test on Windows 10 and 11 early                                          │
+│ • Use multiple detection methods (WMI + pywin32)                           │
+│ • Add manual "refresh" button                                              │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ Risk: Performance issues with multiple apps running                        │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Probability: 25%                                                            │
+│ Impact: Medium (user experience)                                            │
+│ Mitigation:                                                                 │
+│ • Profile memory usage throughout development                              │
+│ • Optimize polling intervals                                               │
+│ • Add option to disable certain features                                   │
+└────────────────────────────────────────────────────────────────────────────┘
+
+
+================================================================================
+DEPENDENCIES & BLOCKERS
+================================================================================
+
+Critical Path:
+Setup → Auth → Window → WinMgr → Browser/Editor/Terminal → Features → Deploy
+
+Parallel Work Opportunities:
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CAN DO IN PARALLEL:                                                         │
+│ • File explorer + Editor integration (Week 4)                               │
+│ • Chat export + Terminal reopen (Week 5)                                    │
+│ • Hotkeys + Layout manager (Week 6)                                         │
+│ • Documentation + Testing (Week 8)                                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+External Dependencies:
+• Python 3.11+ availability
+• PyQt5 compatibility with Windows
+• Notepad++ portable version
+• Chrome/Edge installed on target system
+
+
+================================================================================
+TESTING SCHEDULE
+================================================================================
+
+Unit Testing: Ongoing (every component)
+Integration Testing: End of each sprint
+System Testing: Week 7, Days 31-32
+User Acceptance: Week 8, Days 38-39
+Regression Testing: Week 8, Day 39
+
+Test Environments:
+• Windows 10 Pro (1920x1080)
+• Windows 11 Pro (2560x1440)
+• Windows 10 Home (1366x768) - minimum spec
+
+
+================================================================================
+DELIVERABLES CHECKLIST
+================================================================================
+
+Code:
+□ Source code (all modules)
+□ requirements.txt
+□ config.json.example
+□ .gitignore
+
+Documentation:
+□ README.md
+□ USER_MANUAL.md
+□ DEVELOPER_GUIDE.md
+□ TROUBLESHOOTING.md
+□ CHANGELOG.md
+□ LICENSE
+
+Binaries:
+□ WorkspaceManager.exe (standalone)
+□ WorkspaceManager-Setup.exe (installer)
+□ WorkspaceManager-Portable.zip
+
+Assets:
+□ Icons and images
+□ Default layouts
+□ Sample session files
+
+
+================================================================================
+POST-LAUNCH ROADMAP (FUTURE SPRINTS)
+================================================================================
+
+Version 1.1 (2 weeks after 1.0):
+• Bug fixes from user feedback
+• Performance optimizations
+• Additional layout presets
+
+Version 1.2 (1 month after 1.0):
+• Cloud session sync
+• Multi-monitor optimization
+• Custom editor integration
+
+Version 2.0 (3 months after 1.0):
+• Direct ChatGPT API integration
+• Built-in lightweight editor
+• Plugin system for extensions
+
+
+================================================================================
+END OF TIMELINE DOCUMENT
+================================================================================
