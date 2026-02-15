@@ -1,0 +1,864 @@
+================================================================================
+CONSOLIDATED WORKSPACE MANAGER
+PROJECT FILE STRUCTURE AND ORGANIZATION
+Version 1.0 - February 2026
+================================================================================
+
+TABLE OF CONTENTS
+================================================================================
+1. PROJECT ROOT STRUCTURE
+2. SOURCE CODE ORGANIZATION
+3. MODULE DESCRIPTIONS
+4. CONFIGURATION FILES
+5. DATA DIRECTORIES
+6. DOCUMENTATION STRUCTURE
+7. TESTING STRUCTURE
+8. BUILD AND DEPLOYMENT
+9. DEVELOPMENT WORKFLOW
+10. FILE NAMING CONVENTIONS
+
+================================================================================
+1. PROJECT ROOT STRUCTURE
+================================================================================
+
+consolodated_workspace/
+├── .git/                           # Git version control
+├── .github/                        # GitHub specific files
+│   ├── workflows/                  # GitHub Actions CI/CD
+│   │   └── build.yml              # Build and test workflow
+│   ├── ISSUE_TEMPLATE.md          # Issue template
+│   └── PULL_REQUEST_TEMPLATE.md   # PR template
+├── docs/                           # Documentation
+│   ├── user_manual.md             # End-user documentation
+│   ├── developer_guide.md         # Developer documentation
+│   ├── api_reference.md           # API documentation
+│   ├── troubleshooting.md         # Common issues and solutions
+│   ├── screenshots/               # UI screenshots
+│   └── diagrams/                  # Architecture diagrams
+├── src/                            # Source code
+│   ├── __init__.py
+│   ├── main.py                    # Application entry point
+│   ├── workspace_controller.py    # Main orchestrator
+│   ├── managers/                  # Business logic managers
+│   ├── ui/                        # User interface components
+│   ├── infrastructure/            # Low-level services
+│   ├── models/                    # Data models
+│   ├── utils/                     # Utility functions
+│   └── constants.py               # Application constants
+├── tests/                          # Test suite
+│   ├── __init__.py
+│   ├── unit/                      # Unit tests
+│   ├── integration/               # Integration tests
+│   ├── system/                    # System tests
+│   └── fixtures/                  # Test data
+├── resources/                      # Application resources
+│   ├── icons/                     # Application icons
+│   ├── themes/                    # UI themes
+│   ├── layouts/                   # Default layouts
+│   └── portable_apps/             # Bundled portable applications
+├── config/                         # Configuration templates
+│   ├── config.json.example        # Example configuration
+│   ├── layouts/                   # Layout presets
+│   └── keybindings.json.example   # Keyboard shortcuts
+├── scripts/                        # Utility scripts
+│   ├── build.py                   # Build script
+│   ├── setup_dev_env.py           # Development environment setup
+│   └── create_installer.py        # Installer creation
+├── installer/                      # Installer configuration
+│   ├── inno_setup_script.iss      # Inno Setup configuration
+│   ├── icon.ico                   # Application icon
+│   └── license.txt                # License text
+├── .gitignore                      # Git ignore rules
+├── .pylintrc                       # Pylint configuration
+├── .editorconfig                   # Editor configuration
+├── requirements.txt                # Python dependencies
+├── requirements-dev.txt            # Development dependencies
+├── setup.py                        # Package setup
+├── README.md                       # Project README
+├── LICENSE                         # Software license
+├── CHANGELOG.md                    # Version history
+└── CONTRIBUTING.md                 # Contribution guidelines
+
+================================================================================
+2. SOURCE CODE ORGANIZATION (src/)
+================================================================================
+
+src/
+├── __init__.py                     # Package initialization
+├── main.py                         # Application entry point
+├── workspace_controller.py         # Main controller class
+│
+├── managers/                       # Business logic layer
+│   ├── __init__.py
+│   ├── authentication_manager.py  # USB authentication
+│   ├── window_manager.py          # Window positioning/control
+│   ├── session_manager.py         # Session persistence
+│   ├── export_manager.py          # Chat export functionality
+│   ├── process_monitor.py         # Process tracking
+│   └── layout_manager.py          # Layout management
+│
+├── ui/                             # User interface layer
+│   ├── __init__.py
+│   ├── main_window.py             # Main application window
+│   ├── top_bar.py                 # Top status bar
+│   ├── side_panel.py              # Collapsible side panel
+│   ├── settings_dialog.py         # Settings window
+│   ├── lock_screen.py             # Lock screen UI
+│   ├── first_run_wizard.py        # First-time setup wizard
+│   ├── export_dialog.py           # Export options dialog
+│   ├── layout_selector.py         # Layout selection widget
+│   └── widgets/                   # Custom widgets
+│       ├── __init__.py
+│       ├── file_tree_widget.py    # File explorer tree
+│       ├── status_widget.py       # Status display widget
+│       └── radio_button_group.py  # Radio button group
+│
+├── infrastructure/                 # Low-level services layer
+│   ├── __init__.py
+│   ├── win32_wrapper.py           # Win32 API wrapper
+│   ├── usb_detector.py            # USB device detection
+│   ├── selenium_driver.py         # Browser automation
+│   ├── file_system.py             # File I/O operations
+│   ├── config_manager.py          # Configuration handling
+│   ├── logger.py                  # Logging configuration
+│   └── event_bus.py               # Internal event system
+│
+├── models/                         # Data models
+│   ├── __init__.py
+│   ├── session.py                 # Session data model
+│   ├── window_config.py           # Window configuration model
+│   ├── layout.py                  # Layout data model
+│   ├── app_config.py              # Application configuration model
+│   └── user_preferences.py        # User preferences model
+│
+├── utils/                          # Utility functions
+│   ├── __init__.py
+│   ├── validators.py              # Input validation
+│   ├── formatters.py              # Data formatting
+│   ├── crypto.py                  # Encryption/decryption
+│   ├── screen_utils.py            # Screen resolution helpers
+│   └── process_utils.py           # Process management helpers
+│
+└── constants.py                    # Application constants
+
+================================================================================
+3. DETAILED MODULE DESCRIPTIONS
+================================================================================
+
+3.1 MAIN.PY - APPLICATION ENTRY POINT
+--------------------------------------
+File: src/main.py
+
+Purpose:
+- Application bootstrap
+- Command-line argument parsing
+- Exception handling at top level
+- Logging initialization
+
+Key Functions:
+- main() -> int
+- parse_arguments() -> argparse.Namespace
+- setup_logging()
+- handle_uncaught_exception(exc_type, exc_value, exc_traceback)
+
+Pseudo-code:
+```
+def main():
+    # Parse command-line arguments
+    args = parse_arguments()
+    
+    # Setup logging
+    setup_logging(args.debug)
+    
+    # Install exception handler
+    sys.excepthook = handle_uncaught_exception
+    
+    # Create Qt application
+    app = QApplication(sys.argv)
+    
+    # Initialize workspace controller
+    controller = WorkspaceController()
+    
+    # Check USB authentication
+    if not controller.authenticate():
+        show_error("USB key not found")
+        return 1
+    
+    # Start workspace
+    controller.start()
+    
+    # Run event loop
+    return app.exec_()
+```
+
+3.2 WORKSPACE_CONTROLLER.PY - MAIN ORCHESTRATOR
+------------------------------------------------
+File: src/workspace_controller.py
+
+Purpose:
+- Central coordinator for all components
+- Manages application lifecycle
+- Event routing and handling
+
+Key Classes:
+- WorkspaceController
+
+Key Methods:
+- __init__()
+- authenticate() -> bool
+- start()
+- lock_workspace()
+- unlock_workspace()
+- shutdown()
+
+Dependencies:
+- All manager classes
+- UI components
+- Event bus
+
+3.3 AUTHENTICATION_MANAGER.PY
+------------------------------
+File: src/managers/authentication_manager.py
+
+Purpose:
+- USB drive detection
+- API key validation
+- Connection monitoring
+
+Key Classes:
+- AuthenticationManager
+
+Key Methods:
+- check_usb_present() -> bool
+- load_api_key(drive_letter: str) -> dict
+- validate_api_key(key: str) -> bool
+- start_monitoring()
+- stop_monitoring()
+
+Events Emitted:
+- USB_CONNECTED
+- USB_DISCONNECTED
+
+Configuration:
+- usb_check_interval: 10 seconds
+- key_filename: "github_api_key.txt"
+
+3.4 WINDOW_MANAGER.PY
+---------------------
+File: src/managers/window_manager.py
+
+Purpose:
+- Launch external applications
+- Position and control windows
+- Monitor window state
+
+Key Classes:
+- WindowManager
+- ManagedWindow (data class)
+
+Key Methods:
+- launch_application(app_name: str, config: AppConfig) -> int
+- position_window(hwnd: int, rect: Rect)
+- get_window_position(hwnd: int) -> Rect
+- restore_layout(layout: Layout)
+- save_custom_layout(name: str) -> Layout
+
+Private Helper Methods:
+- _find_window_by_title(title: str) -> int
+- _calculate_layout_positions(screen_size: Size) -> dict
+- _is_window_responsive(hwnd: int) -> bool
+
+3.5 SESSION_MANAGER.PY
+----------------------
+File: src/managers/session_manager.py
+
+Purpose:
+- Persist workspace state
+- Manage user preferences
+- Handle configuration files
+
+Key Classes:
+- SessionManager
+
+Key Methods:
+- save_session(session: Session)
+- load_session() -> Session
+- get_preference(key: str, default=None) -> any
+- set_preference(key: str, value: any)
+- clear_session()
+- export_session(path: str)
+
+Storage:
+- session.json (current state)
+- session.json.bak (backup)
+- preferences.json (user settings)
+
+3.6 EXPORT_MANAGER.PY
+---------------------
+File: src/managers/export_manager.py
+
+Purpose:
+- Browser automation for chat extraction
+- Code snippet extraction
+- File downloads and archiving
+
+Key Classes:
+- ExportManager
+- ExportOptions (enum)
+
+Key Methods:
+- export_included_files(output_dir: str) -> ExportResult
+- export_code_snippets(output_dir: str) -> ExportResult
+- export_full_chat(output_path: str) -> ExportResult
+- set_browser_driver(driver: WebDriver)
+
+Private Helper Methods:
+- _extract_code_blocks(html: str) -> List[CodeBlock]
+- _download_file(url: str, destination: str) -> bool
+- _create_archive(source_dir: str, archive_path: str) -> bool
+- _format_chat_message(element: WebElement) -> str
+
+3.7 PROCESS_MONITOR.PY
+----------------------
+File: src/managers/process_monitor.py
+
+Purpose:
+- Track managed processes
+- Detect crashes and terminations
+- Resource monitoring
+
+Key Classes:
+- ProcessMonitor
+- ProcessInfo (data class)
+
+Key Methods:
+- register_process(app_name: str, pid: int)
+- unregister_process(pid: int)
+- is_process_running(pid: int) -> bool
+- get_process_info(pid: int) -> ProcessInfo
+- start_monitoring()
+- stop_monitoring()
+
+Monitoring Thread:
+- Interval: 2 seconds
+- Metrics: existence, memory, CPU
+
+3.8 LAYOUT_MANAGER.PY
+---------------------
+File: src/managers/layout_manager.py
+
+Purpose:
+- Manage window layouts
+- Save and restore custom layouts
+- Adapt layouts to different resolutions
+
+Key Classes:
+- LayoutManager
+- Layout (data class)
+- Region (data class)
+
+Key Methods:
+- load_layout(name: str) -> Layout
+- save_layout(layout: Layout)
+- delete_layout(name: str)
+- list_layouts() -> List[str]
+- calculate_positions(layout: Layout, screen_size: Size) -> dict
+
+Built-in Layouts:
+- default: Standard 60/40 split
+- focus: Browser full-screen
+- coding: Editor maximized
+- debug: Terminal prominent
+
+================================================================================
+4. CONFIGURATION FILES
+================================================================================
+
+4.1 CONFIG.JSON - MAIN CONFIGURATION
+-------------------------------------
+Location: %APPDATA%\WorkspaceManager\config.json
+
+Structure:
+{
+  "version": "1.0",
+  "applications": {
+    "browser": {
+      "path": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+      "args": "--app={url} --window-size={width},{height}",
+      "default_url": "https://github.com/{username}"
+    },
+    "editor": {
+      "path": "C:/Program Files/Notepad++/notepad++.exe",
+      "args": "-multiInst -nosession {files}",
+      "portable": false
+    },
+    "terminal": {
+      "path": "C:/Windows/System32/cmd.exe",
+      "args": "/k cd /d {cwd}",
+      "shell_type": "cmd"
+    },
+    "file_explorer": {
+      "type": "custom"
+    }
+  },
+  "authentication": {
+    "usb_check_interval": 10,
+    "key_filename": "github_api_key.txt",
+    "lock_on_usb_removal": true,
+    "encrypt_key_file": false
+  },
+  "monitoring": {
+    "process_check_interval": 2,
+    "auto_restart_crashed_apps": true,
+    "window_position_tolerance": 50
+  },
+  "export": {
+    "default_location": "./exports",
+    "archive_format": "zip",
+    "snippet_naming": "snippet_{index}_{language}_{timestamp}.txt",
+    "chat_naming": "chat_{timestamp}.txt"
+  },
+  "ui": {
+    "theme": "dark",
+    "font_family": "Segoe UI",
+    "font_size": 12,
+    "show_side_panel": true,
+    "enable_hotkeys": true
+  }
+}
+
+4.2 SESSION.JSON - CURRENT SESSION
+-----------------------------------
+Location: %APPDATA%\WorkspaceManager\session.json
+
+Structure: (See Technical Specification section 7.2)
+
+4.3 PREFERENCES.JSON - USER PREFERENCES
+----------------------------------------
+Location: %APPDATA%\WorkspaceManager\preferences.json
+
+Structure:
+{
+  "auto_restore_session": true,
+  "check_updates_on_startup": true,
+  "monitor_index": 0,
+  "default_project_folder": "C:/Projects",
+  "theme": "dark",
+  "font_size": 12,
+  "hotkeys": {
+    "restore_layout": "Ctrl+Alt+L",
+    "hide_workspace": "Ctrl+Alt+H",
+    "focus_terminal": "Ctrl+Alt+T",
+    "focus_editor": "Ctrl+Alt+E",
+    "focus_browser": "Ctrl+Alt+B",
+    "open_settings": "Ctrl+Alt+S"
+  },
+  "export": {
+    "last_location": "C:/Projects/MyApp/exports",
+    "archive_format": "zip"
+  }
+}
+
+4.4 LAYOUTS/ - LAYOUT PRESETS
+------------------------------
+Location: %APPDATA%\WorkspaceManager\layouts/
+
+Files:
+- default.json
+- focus.json
+- coding.json
+- debug.json
+- custom_*.json (user-created)
+
+Structure: (See Technical Specification section 7.3)
+
+================================================================================
+5. DATA DIRECTORIES
+================================================================================
+
+5.1 APPLICATION DATA DIRECTORY
+-------------------------------
+Location: %APPDATA%\WorkspaceManager\
+
+Contents:
+├── config.json                     # Main configuration
+├── session.json                    # Current session
+├── session.json.bak                # Session backup
+├── preferences.json                # User preferences
+├── layouts/                        # Layout presets
+│   ├── default.json
+│   ├── focus.json
+│   ├── coding.json
+│   └── custom_mylayout.json
+├── logs/                           # Log files
+│   ├── app.log                     # Application log
+│   ├── error.log                   # Error log
+│   └── debug.log                   # Debug log (if enabled)
+├── cache/                          # Temporary cache
+│   └── window_snapshots/           # Window thumbnails
+└── backups/                        # Automatic backups
+    ├── session_2026-02-15.json
+    └── config_2026-02-15.json
+
+5.2 PROJECT DIRECTORY
+---------------------
+Location: User-specified (e.g., C:/Projects/MyApp/)
+
+Contents:
+├── exports/                        # Exported chat data
+│   ├── archive_2026-02-15_143000/
+│   │   ├── file1.py
+│   │   ├── file2.js
+│   │   └── archive.zip
+│   ├── snippets_2026-02-15_143500/
+│   │   ├── snippet_01_python_2026.txt
+│   │   └── snippet_02_javascript_2026.txt
+│   └── chat_2026-02-15_144000.txt
+├── src/                            # Project source code
+├── tests/                          # Project tests
+└── ... (project-specific files)
+
+5.3 LOGS DIRECTORY
+------------------
+Location: %APPDATA%\WorkspaceManager\logs/
+
+Files:
+- app.log: General application logs (INFO level)
+- error.log: Errors and warnings (WARNING level)
+- debug.log: Detailed debug logs (DEBUG level, opt-in)
+
+Log Rotation:
+- Max size: 10MB per file
+- Keep last 5 rotated files
+- Naming: app.log, app.log.1, app.log.2, ...
+
+Log Format:
+2026-02-15 14:30:00,123 [INFO] workspace_controller: Starting workspace
+2026-02-15 14:30:01,456 [DEBUG] window_manager: Positioning browser at (0,0,1152,1080)
+2026-02-15 14:30:05,789 [ERROR] authentication_manager: USB key not found
+
+================================================================================
+6. DOCUMENTATION STRUCTURE
+================================================================================
+
+docs/
+├── user_manual.md                  # End-user documentation
+│   ├── 1. Installation
+│   ├── 2. First-Time Setup
+│   ├── 3. Daily Usage
+│   ├── 4. Keyboard Shortcuts
+│   ├── 5. Customization
+│   └── 6. Troubleshooting
+│
+├── developer_guide.md              # Developer documentation
+│   ├── 1. Development Setup
+│   ├── 2. Architecture Overview
+│   ├── 3. Adding New Features
+│   ├── 4. Testing Guidelines
+│   └── 5. Building and Packaging
+│
+├── api_reference.md                # API documentation
+│   ├── WorkspaceController
+│   ├── AuthenticationManager
+│   ├── WindowManager
+│   ├── SessionManager
+│   └── ... (all public APIs)
+│
+├── troubleshooting.md              # Common issues
+│   ├── USB Key Not Detected
+│   ├── Applications Won't Launch
+│   ├── Windows Won't Position
+│   └── Export Failures
+│
+├── screenshots/                    # UI screenshots
+│   ├── main_window.png
+│   ├── settings_dialog.png
+│   ├── first_run_wizard.png
+│   └── lock_screen.png
+│
+└── diagrams/                       # Architecture diagrams
+    ├── architecture_overview.png
+    ├── component_diagram.png
+    ├── sequence_startup.png
+    └── data_flow.png
+
+================================================================================
+7. TESTING STRUCTURE
+================================================================================
+
+tests/
+├── __init__.py
+│
+├── unit/                           # Unit tests (fast, isolated)
+│   ├── __init__.py
+│   ├── test_authentication_manager.py
+│   ├── test_window_manager.py
+│   ├── test_session_manager.py
+│   ├── test_export_manager.py
+│   ├── test_process_monitor.py
+│   ├── test_layout_manager.py
+│   ├── test_validators.py
+│   └── test_formatters.py
+│
+├── integration/                    # Integration tests (medium speed)
+│   ├── __init__.py
+│   ├── test_workspace_startup.py
+│   ├── test_session_persistence.py
+│   ├── test_export_workflow.py
+│   └── test_usb_monitoring.py
+│
+├── system/                         # System tests (slow, end-to-end)
+│   ├── __init__.py
+│   ├── test_full_startup_sequence.py
+│   ├── test_usb_removal_lock.py
+│   ├── test_layout_switching.py
+│   └── test_export_all_options.py
+│
+├── fixtures/                       # Test data and fixtures
+│   ├── sample_config.json
+│   ├── sample_session.json
+│   ├── sample_api_key.json
+│   └── mock_html_chat.html
+│
+├── conftest.py                     # Pytest configuration and fixtures
+└── test_helpers.py                 # Test utility functions
+
+Test File Naming:
+- test_<module_name>.py for unit tests
+- All test functions: test_<functionality>()
+
+Example Test File:
+# tests/unit/test_authentication_manager.py
+import pytest
+from src.managers.authentication_manager import AuthenticationManager
+
+@pytest.fixture
+def auth_manager():
+    return AuthenticationManager()
+
+def test_validate_api_key_valid(auth_manager):
+    assert auth_manager.validate_api_key("ghp_" + "x"*40) == True
+
+def test_validate_api_key_invalid(auth_manager):
+    assert auth_manager.validate_api_key("invalid") == False
+
+def test_check_usb_present_no_usb(auth_manager, monkeypatch):
+    monkeypatch.setattr("psutil.disk_partitions", lambda: [])
+    assert auth_manager.check_usb_present() == False
+
+================================================================================
+8. BUILD AND DEPLOYMENT
+================================================================================
+
+8.1 BUILD ARTIFACTS
+-------------------
+build/                              # Build output (gitignored)
+├── temp/                           # Temporary build files
+├── lib/                            # Compiled libraries
+└── exe/                            # Final executable
+
+dist/                               # Distribution packages (gitignored)
+├── WorkspaceManager.exe            # Standalone executable
+├── WorkspaceManager-Setup.exe      # Installer
+└── WorkspaceManager-Portable.zip   # Portable version
+
+8.2 INSTALLER STRUCTURE
+-----------------------
+installer/
+├── inno_setup_script.iss           # Inno Setup configuration
+├── icon.ico                        # Application icon
+├── license.txt                     # License agreement text
+├── readme.txt                      # Installation readme
+└── portable_apps/                  # Optional bundled apps
+    ├── notepadpp/                  # Portable Notepad++
+    └── chrome_portable/            # Portable Chrome (optional)
+
+8.3 SCRIPTS DIRECTORY
+---------------------
+scripts/
+├── build.py                        # Build executable
+│   Usage: python scripts/build.py [--debug] [--onefile]
+│
+├── create_installer.py             # Create installer package
+│   Usage: python scripts/create_installer.py
+│
+├── setup_dev_env.py                # Setup development environment
+│   Usage: python scripts/setup_dev_env.py
+│
+├── run_tests.py                    # Run test suite
+│   Usage: python scripts/run_tests.py [--coverage] [--verbose]
+│
+└── clean.py                        # Clean build artifacts
+    Usage: python scripts/clean.py [--all]
+
+================================================================================
+9. DEVELOPMENT WORKFLOW
+================================================================================
+
+9.1 BRANCHING STRATEGY
+-----------------------
+- main: Production-ready code
+- develop: Integration branch for features
+- feature/*: Feature development
+- bugfix/*: Bug fixes
+- release/*: Release preparation
+
+Example:
+feature/export-chat-functionality
+bugfix/usb-detection-windows-11
+release/v1.0.0
+
+9.2 COMMIT MESSAGE FORMAT
+--------------------------
+Format:
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+
+Types:
+- feat: New feature
+- fix: Bug fix
+- docs: Documentation changes
+- style: Code style changes (formatting)
+- refactor: Code refactoring
+- test: Adding tests
+- chore: Build process, dependencies
+
+Examples:
+feat(export): Add code snippet extraction
+fix(usb): Handle USB removal edge case on Windows 11
+docs(readme): Update installation instructions
+
+9.3 CODE REVIEW CHECKLIST
+--------------------------
+□ Code follows PEP 8 style guide
+□ All functions have docstrings
+□ Unit tests added for new functionality
+□ No hardcoded paths or credentials
+□ Error handling implemented
+□ Logging added for key operations
+□ Comments explain "why", not "what"
+□ No security vulnerabilities
+□ Performance considerations addressed
+
+9.4 RELEASE PROCESS
+-------------------
+1. Create release branch: release/v1.0.0
+2. Update version numbers:
+   - src/constants.py: VERSION = "1.0.0"
+   - setup.py: version="1.0.0"
+   - installer/inno_setup_script.iss: AppVersion=1.0.0
+3. Update CHANGELOG.md
+4. Run full test suite
+5. Build executable and installer
+6. Test installer on clean system
+7. Tag release: git tag v1.0.0
+8. Merge to main
+9. Deploy artifacts
+10. Create GitHub release
+
+================================================================================
+10. FILE NAMING CONVENTIONS
+================================================================================
+
+10.1 PYTHON FILES
+-----------------
+- Module names: lowercase_with_underscores.py
+- Class names: CapitalizedWords (PascalCase)
+- Function names: lowercase_with_underscores
+- Constants: UPPERCASE_WITH_UNDERSCORES
+
+Examples:
+- authentication_manager.py (module)
+- class AuthenticationManager (class)
+- def validate_api_key() (function)
+- USB_CHECK_INTERVAL = 10 (constant)
+
+10.2 CONFIGURATION FILES
+------------------------
+- JSON files: lowercase.json
+- Example files: lowercase.json.example
+- Backup files: original_name.bak
+
+Examples:
+- config.json
+- session.json
+- config.json.example
+- session.json.bak
+
+10.3 LAYOUT FILES
+-----------------
+Format: {name}.json
+
+Built-in:
+- default.json
+- focus.json
+- coding.json
+- debug.json
+
+Custom:
+- custom_{name}.json
+- custom_myworkspace.json
+
+10.4 EXPORTED FILES
+-------------------
+Archives:
+- Format: archive_{timestamp}/
+- Example: archive_2026-02-15_143000/
+
+Snippets:
+- Format: snippet_{index}_{language}_{timestamp}.txt
+- Example: snippet_01_python_20260215143000.txt
+
+Chats:
+- Format: chat_{timestamp}.txt
+- Example: chat_20260215143000.txt
+
+Timestamps:
+- Format: YYYYMMDD_HHMMSS
+- Example: 20260215_143000
+
+10.5 LOG FILES
+--------------
+- Application log: app.log
+- Error log: error.log
+- Debug log: debug.log
+- Rotated logs: app.log.1, app.log.2, etc.
+
+10.6 TEST FILES
+---------------
+- Unit tests: test_{module_name}.py
+- Integration tests: test_{workflow_name}.py
+- System tests: test_{end_to_end_scenario}.py
+- Fixtures: sample_{data_type}.{ext}
+
+Examples:
+- test_authentication_manager.py
+- test_workspace_startup.py
+- test_full_startup_sequence.py
+- sample_config.json
+
+================================================================================
+FILE STRUCTURE SUMMARY
+================================================================================
+
+Total Files (Estimated):
+- Source code: ~30 Python files
+- Tests: ~20 test files
+- Configuration: ~10 config files
+- Documentation: ~10 markdown files
+- Resources: ~20 resource files
+- Scripts: ~5 utility scripts
+
+Total Size (Estimated):
+- Source code: ~5,000 lines
+- Tests: ~3,000 lines
+- Documentation: ~10,000 words
+- Resources: ~5MB
+- Built executable: ~30-50MB
+
+================================================================================
+END OF FILE STRUCTURE DOCUMENT
+================================================================================
